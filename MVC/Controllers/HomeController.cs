@@ -1,17 +1,55 @@
-﻿using System;
+﻿using MVC.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using MVC.DataAccess;
 
 namespace MVC.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly AmigoDataService _dataService;
+
+        public HomeController()
+        {
+            var connectionString = System.Configuration.ConfigurationManager.
+                ConnectionStrings["SQLConnection"].ConnectionString;
+            _dataService = new AmigoDataService(connectionString);
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var amigos = _dataService.GetAmigos();
+            return View(amigos);
         }
+
+        public ActionResult AddView()
+        {
+            var amigo = new Amigo();
+            return View(amigo);
+        }
+
+        public ActionResult Delete(int i)
+        {
+            var result = _dataService.DeleteAmigo(i);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult AddView(Amigo amigo)
+        {
+            if (!ModelState.IsValid) return View(amigo);
+
+            var result = _dataService.AddAmigo(amigo);
+
+            if (result)
+                return RedirectToAction("Index");
+
+            return View(amigo);
+        }
+        
+        
+
+
 
         public ActionResult About()
         {
