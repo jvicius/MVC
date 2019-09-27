@@ -46,8 +46,8 @@ namespace MVC.Controllers
 
             return View(amigo);
         }
-        
-        
+
+
 
 
 
@@ -64,5 +64,25 @@ namespace MVC.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public ActionResult ModificarAmigo(Amigo amigo)
+        {
+            if (!ModelState.IsValid) return View(amigo);
+
+            var result = _dataService.UpdateAmigo(amigo.idamigo, amigo);
+
+            if (result)
+                return RedirectToAction("Index");
+
+            return View(amigo);
+        }
+
+        public ActionResult ModificarAmigo()
+        {
+            var amigo = new Amigo();
+            return View(amigo);
+        }
+
     }
 }
