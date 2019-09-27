@@ -1,30 +1,34 @@
 ﻿@model IEnumerable<MVC.Models.Amigo>
 
 <h2>Amigos</h2>
+
 <a href="@Url.Action("AddView")">Agregar</a>
+
 @if (Model.Any())
 {
     <div class="container">
         <br />
         <div style="width:90%; margin:0 auto;">
             <table class="table table-striped table-bordered">
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Direccion</th>
-                    <th>Telefono</th>
-                    <th></th>
-                    
-                </tr>
+				<tr>
+					<th>Id</th>
+					<th>Nombre</th>
+					<th>Direccion</th>
+					<th>Telefono</th>
+					<th></th>
+					<th></th>
+
+				</tr>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>@item.idamigo</td>
-                    <td>@item.nombre</td>
-                    <td>@item.direccion</td>
-                    <td>@item.telefono</td>
-                    <td> @Html.ActionLink("Borrar", "Delete", new { i = item.idamigo })</td>
-                </tr>
+			<tr>
+				<td>@item.idamigo</td>
+				<td>@item.nombre</td>
+				<td>@item.direccion</td>
+				<td>@item.telefono</td>
+				<td> @Html.ActionLink("Borrar", "Delete", new { i = item.idamigo })</td>
+				<td> @Html.ActionLink("Actualizar", "UpdateVeiw", new { i = item.idamigo })</td>
+			</tr>
                 }
             </table>
         </div>

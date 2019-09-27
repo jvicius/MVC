@@ -34,6 +34,34 @@ namespace MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult UpdateVeiw(int i)
+        {
+            var amigos = _dataService.GetAmigos();
+            var amigo = new Amigo();
+
+            foreach (var item in amigos)
+            {
+                if(item.idamigo ==i)
+                {
+                    amigo = item;
+                }
+            }
+            return View(amigo);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateVeiw(Amigo amigo)
+        {
+            if (!ModelState.IsValid) return View(amigo);
+
+            var result = _dataService.RefreshAmigo(amigo);
+
+            if (result)
+                return RedirectToAction("Index");
+
+            return View(amigo);
+        }
+
         [HttpPost]
         public ActionResult AddView(Amigo amigo)
         {
@@ -47,11 +75,7 @@ namespace MVC.Controllers
             return View(amigo);
         }
         
-        
-
-
-
-        public ActionResult About()
+       public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
