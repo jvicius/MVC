@@ -28,6 +28,12 @@ namespace MVC.Controllers
             return View(amigo);
         }
 
+        public ActionResult UpdateAmigo()
+        {
+            var amigo = new Amigo();
+            return View(amigo);
+        }
+
         public ActionResult Delete(int i)
         {
             var result = _dataService.DeleteAmigo(i);
@@ -46,8 +52,22 @@ namespace MVC.Controllers
 
             return View(amigo);
         }
-        
-        
+
+        [HttpPost]
+        public ActionResult UpdateAmigo(Amigo amigo)
+        {
+            if (!ModelState.IsValid) return View(amigo);
+
+            var result = _dataService.UpdateAmigo(amigo);
+
+            if (result)
+                return RedirectToAction("Index");
+
+            return View(amigo);
+        }
+
+
+
 
 
 
