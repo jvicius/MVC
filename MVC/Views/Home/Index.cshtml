@@ -13,8 +13,9 @@
                     <th>Nombre</th>
                     <th>Direccion</th>
                     <th>Telefono</th>
-                    <th></th>
-                    
+                    <th>Borrar</th>
+                    <th>Actualizar</th>
+
                 </tr>
                 @foreach (var item in Model)
                 {
@@ -24,6 +25,7 @@
                     <td>@item.direccion</td>
                     <td>@item.telefono</td>
                     <td> @Html.ActionLink("Borrar", "Delete", new { i = item.idamigo })</td>
+                    <td> @Html.ActionLink("Actualizar", "UpdateView", new { i = item.idamigo })</td>
                 </tr>
                 }
             </table>
