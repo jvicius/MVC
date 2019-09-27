@@ -2,6 +2,8 @@
 
 <h2>Amigos</h2>
 <a href="@Url.Action("AddView")">Agregar</a>
+<span style="display:inline-block; width: 100px;"></span>
+<a href="@Url.Action("UpdateAmigos") ">Update amigo</a>
 @if (Model.Any())
 {
     <div class="container">
@@ -14,17 +16,17 @@
                     <th>Direccion</th>
                     <th>Telefono</th>
                     <th></th>
-                    
+
                 </tr>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>@item.idamigo</td>
-                    <td>@item.nombre</td>
-                    <td>@item.direccion</td>
-                    <td>@item.telefono</td>
-                    <td> @Html.ActionLink("Borrar", "Delete", new { i = item.idamigo })</td>
-                </tr>
+                    <tr>
+                        <td>@item.idamigo</td>
+                        <td>@item.nombre</td>
+                        <td>@item.direccion</td>
+                        <td>@item.telefono</td>
+                        <td> @Html.ActionLink("Borrar", "Delete", new { i = item.idamigo })</td>
+                    </tr>
                 }
             </table>
         </div>
