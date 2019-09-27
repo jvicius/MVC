@@ -111,9 +111,10 @@ namespace MVC.DataAccess
 
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 result = false;
+                Console.WriteLine(e.Message);
             }
             finally
             {
@@ -159,6 +160,79 @@ namespace MVC.DataAccess
                 }
             }
             catch (Exception)
+            {
+                result = false;
+            }
+            finally
+            {
+                _client.Close();
+            }
+
+            return result;
+        }
+
+        public bool UpdateAmigo(Amigo amigo)
+        {
+            var result = false;
+            try
+            {
+                if (_client.Open())
+                {
+                    var command = new SqlCommand
+                    {
+                        Connection = _client.Conecction,
+                        CommandText = "updateamigo",
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    var par0 = new SqlParameter("@idamigo", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Input,
+                        Value = amigo.idamigo
+                    };
+
+                    var par1 = new SqlParameter("@nombre", SqlDbType.NVarChar)
+                    {
+                        Direction = ParameterDirection.Input,
+                        Value = amigo.nombre
+                    };
+
+                    var par2 = new SqlParameter("@fecnac", SqlDbType.DateTime)
+                    {
+                        Direction = ParameterDirection.Input,
+                        Value = amigo.fecnac
+                    };
+
+                    var par3 = new SqlParameter("@direccion", SqlDbType.NVarChar)
+                    {
+                        Direction = ParameterDirection.Input,
+                        Value = amigo.direccion
+                    };
+
+                    var par4 = new SqlParameter("@telefono", SqlDbType.NVarChar)
+                    {
+                        Direction = ParameterDirection.Input,
+                        Value = amigo.telefono
+                    };
+
+                    var par5 = new SqlParameter("@haserror", SqlDbType.Bit)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+
+                    command.Parameters.Add(par0);
+                    command.Parameters.Add(par1);
+                    command.Parameters.Add(par2);
+                    command.Parameters.Add(par3);
+                    command.Parameters.Add(par4);
+                    command.Parameters.Add(par5);
+
+                    command.ExecuteNonQuery();
+
+                    result = !Convert.ToBoolean(command.Parameters["@haserror"].Value.ToString());
+                }
+            }
+            catch
             {
                 result = false;
             }
