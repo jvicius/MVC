@@ -10,7 +10,7 @@ namespace MVC.Models
         public int idamigo { set; get; }
 
         [Display(Name = "Nombre")]
-        [Required(ErrorMessage = "El Nombre es Requerido")]
+        [Required(ErrorMessage = "Se necesita un nombre.")]
         public string nombre { set; get; }
 
         [Display(Name = "Cumpleaños")]

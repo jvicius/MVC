@@ -4,6 +4,7 @@ namespace MVC.DataAccess
 {
     public class SqlClient
     {
+
         public SqlConnection Conecction { get; }
 
         public SqlClient(string connectionString)
