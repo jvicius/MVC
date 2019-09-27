@@ -1,5 +1,6 @@
 ﻿using MVC.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using MVC.DataAccess;
 
@@ -49,8 +50,7 @@ namespace MVC.Controllers
    
         public ActionResult UpdateView(int i)
         {
-            var amigo = new Amigo();
-            amigo.idamigo = i;
+            var amigo = _dataService.GetAmigos().FirstOrDefault(f => f.idamigo == i);
             return View(amigo);
         }
 
